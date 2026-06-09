@@ -1,0 +1,11 @@
+{
+  "facts": [
+    "El usuario se llama Pach",
+    "El usuario usa Arch Linux",
+    "El usuario usa bspwm",
+    "El usuario estudia seguridad informática",
+    "El usuario programa en Python",
+    "El usuario desarrolla un asistente llamado Lain",
+    "Lain utiliza Ollama para ejecutar modelos locales"
+  ]
+}
