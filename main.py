@@ -10,6 +10,7 @@ from config import (
     USER_NAME,
 )
 
+from tools.aider_tool import run_aider
 
 def load_system_prompt():
     return Path(
@@ -142,6 +143,16 @@ def main():
             "quit"
         }:
             break
+
+        #invoke aider:w
+        if user_input.startswith("aider "):
+            prompt = user_input.removeprefix("aider ")
+
+            response = run_aider(prompt)
+
+            print(response)
+
+            continue
 
         if user_input.startswith("/analyze "):
 
