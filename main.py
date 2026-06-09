@@ -1,6 +1,8 @@
 from pathlib import Path
 from datetime import datetime
 import json
+import os
+import shutil
 
 from ollama import chat
 
@@ -10,8 +12,9 @@ from config import (
     USER_NAME,
 )
 
+from tools.run_lain import run_lain
 from tools.aider_tool import run_aider
-
+from tools.analyze import analyze_file
 
 def load_system_prompt():
     return Path(
@@ -110,17 +113,17 @@ def backup_file(filepath):
     return backup_path
 
 def main():
-    system_prompt = (
-        load_system_prompt()
-        + load_memory()
-    )
+    # system_prompt = (
+    #     load_system_prompt()
+    #     + load_memory()
+    # )
 
-    messages = [
-        {
-            "role": "system",
-            "content": system_prompt
-        }
-    ]
+    # messages = [
+    #     {
+    #         "role": "system",
+    #         "content": system_prompt
+    #     }
+    # ]
 
     print(
         f"[{ASSISTANT_NAME} v1]"
@@ -131,67 +134,27 @@ def main():
     )
 
     while True:
+        user_input = input("> ")
 
-        user_input = input(
-            f"{USER_NAME} > "
-        ).strip()
-
-        if not user_input:
-            continue
-
-        if user_input.lower() in {
-            "exit",
-            "quit"
-        }:
+        if user_input.lower() == "exit":
+            print("Adiós!")
             break
 
-        #invoke aider:w
-        if user_input.startswith("aider "):
-            prompt = user_input.removeprefix("aider ")
+        elif user_input.startswith("/analyze "):
+            parts = user_input[len("/analyze "):].strip().split(" ", 1)
 
-            response = run_aider(prompt)
+            file_path = parts[0]
+            question = parts[1] if len(parts) > 1 else ""
 
-            print(response)
+            result = analyze_file(file_path, question)
 
             continue
 
-        if user_input.startswith("/analyze "):
-
-            ...
+        elif user_input.startswith("/aider "):
+            
             continue
 
-        write_log(
-            "USER",
-            user_input
-        )
-
-        messages.append({
-            "role": "user",
-            "content": user_input
-        })
-
-        response = chat(
-            model=MODEL,
-            messages=messages
-        )
-
-        assistant_message = (
-            response["message"]["content"]
-        )
-
-        messages.append({
-            "role": "assistant",
-            "content": assistant_message
-        })
-
-        write_log(
-            "LAIN",
-            assistant_message
-        )
-
-        print(
-            f"\nλ > {assistant_message}\n"
-        )
+        run_lain(user_input)
 
 
 if __name__ == "__main__":

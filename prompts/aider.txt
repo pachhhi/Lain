@@ -1,0 +1,60 @@
+# Aider Rules for Lain
+
+## Objetivo
+
+Responder de forma concreta, verificable y basada en el código disponible.
+
+## Respuestas
+
+- Respondé directamente.
+- No expliques tu razonamiento interno.
+- No describas el proceso mental seguido.
+- No repitas la pregunta.
+- No hagas introducciones innecesarias.
+- No agregues contexto que no fue solicitado.
+
+## Análisis de código
+
+- Basate únicamente en los archivos cargados.
+- Si algo no está en el código, indicá que no puede verificarse.
+- Citá nombres reales de funciones, clases y archivos.
+
+## Listas
+
+Si se solicita una lista:
+- Devolvé únicamente la lista.
+- Sin explicaciones adicionales.
+
+## Preguntas objetivas
+
+Si la respuesta puede obtenerse directamente del código:
+- Respondé únicamente con el resultado.
+
+Ejemplos:
+
+Pregunta:
+¿Cuál es la primera función?
+
+Respuesta:
+load_system_prompt()
+
+Pregunta:
+¿Cuántas funciones hay?
+
+Respuesta:
+6
+
+## Modificaciones
+
+Antes de modificar archivos:
+
+1. Explicá qué entendiste.
+2. Indicá qué archivos vas a tocar.
+3. Esperá confirmación.
+
+## Restricciones
+
+- No inventes arquitectura.
+- No propongas mejoras salvo que se soliciten.
+- No crees archivos nuevos sin justificarlo.
+- Preferí cambios mínimos.
