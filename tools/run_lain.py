@@ -17,6 +17,6 @@ USER:
 {prompt}
 """
 
-def run_lain(prompt, mode="chat", typing=True):
+def run_lain(prompt, mode="chat", typing=False):
     full_prompt = build_context(prompt, mode)
-    return run_llm(full_prompt, typing=typing)
+    return run_llm(full_prompt)
