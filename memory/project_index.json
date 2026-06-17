@@ -1,0 +1,608 @@
+{
+  "files": {
+    "config.py": {
+      "path": "config.py",
+      "symbols": [],
+      "short_desc": null
+    },
+    "core/context.py": {
+      "path": "core/context.py",
+      "symbols": [
+        {
+          "name": "_remove_thinking_blocks",
+          "type": "function",
+          "lineno": 7,
+          "desc": "Remove chain-of-thought blocks from text."
+        },
+        {
+          "name": "load_system_prompt",
+          "type": "function",
+          "lineno": 24,
+          "desc": null
+        },
+        {
+          "name": "load_last_messages",
+          "type": "function",
+          "lineno": 29,
+          "desc": null
+        },
+        {
+          "name": "load_session",
+          "type": "function",
+          "lineno": 56,
+          "desc": null
+        },
+        {
+          "name": "save_session",
+          "type": "function",
+          "lineno": 73,
+          "desc": null
+        },
+        {
+          "name": "load_memory",
+          "type": "function",
+          "lineno": 88,
+          "desc": null
+        }
+      ],
+      "short_desc": null
+    },
+    "main.py": {
+      "path": "main.py",
+      "symbols": [
+        {
+          "name": "load_system_prompt",
+          "type": "function",
+          "lineno": 21,
+          "desc": null
+        },
+        {
+          "name": "load_memory",
+          "type": "function",
+          "lineno": 29,
+          "desc": null
+        },
+        {
+          "name": "write_log",
+          "type": "function",
+          "lineno": 62,
+          "desc": null
+        },
+        {
+          "name": "read_file",
+          "type": "function",
+          "lineno": 93,
+          "desc": null
+        },
+        {
+          "name": "backup_file",
+          "type": "function",
+          "lineno": 107,
+          "desc": null
+        },
+        {
+          "name": "main",
+          "type": "function",
+          "lineno": 121,
+          "desc": null
+        }
+      ],
+      "short_desc": null
+    },
+    "prompts/aider.txt": {
+      "path": "prompts/aider.txt",
+      "symbols": [],
+      "short_desc": "Aider Rules for Lain"
+    },
+    "prompts/system.txt": {
+      "path": "prompts/system.txt",
+      "symbols": [],
+      "short_desc": "Tu nombre es Lain."
+    },
+    "todo.txt": {
+      "path": "todo.txt",
+      "symbols": [],
+      "short_desc": "1. Hacer general el /analyze, que analice cualquier archivo de mi computadora | HECHO!"
+    },
+    "tools/aider_tool.py": {
+      "path": "tools/aider_tool.py",
+      "symbols": [
+        {
+          "name": "run_aider",
+          "type": "function",
+          "lineno": 20,
+          "desc": null
+        }
+      ],
+      "short_desc": null
+    },
+    "tools/analyze.py": {
+      "path": "tools/analyze.py",
+      "symbols": [
+        {
+          "name": "_read_file_safe",
+          "type": "function",
+          "lineno": 12,
+          "desc": null
+        },
+        {
+          "name": "_build_directory_prompt",
+          "type": "function",
+          "lineno": 19,
+          "desc": null
+        },
+        {
+          "name": "analyze_file",
+          "type": "function",
+          "lineno": 34,
+          "desc": null
+        }
+      ],
+      "short_desc": null
+    },
+    "tools/llm_tool.py": {
+      "path": "tools/llm_tool.py",
+      "symbols": [
+        {
+          "name": "clean",
+          "type": "function",
+          "lineno": 13,
+          "desc": null
+        },
+        {
+          "name": "remove_thinking",
+          "type": "function",
+          "lineno": 24,
+          "desc": "Remove chain-of-thought blocks from text."
+        },
+        {
+          "name": "run_llm",
+          "type": "function",
+          "lineno": 41,
+          "desc": null
+        }
+      ],
+      "short_desc": null
+    },
+    "tools/project_search.py": {
+      "path": "tools/project_search.py",
+      "symbols": [
+        {
+          "name": "normalize_project",
+          "type": "function",
+          "lineno": 39,
+          "desc": null
+        },
+        {
+          "name": "is_allowed_file",
+          "type": "function",
+          "lineno": 46,
+          "desc": null
+        },
+        {
+          "name": "project_files",
+          "type": "function",
+          "lineno": 50,
+          "desc": null
+        },
+        {
+          "name": "build_project_tree",
+          "type": "function",
+          "lineno": 65,
+          "desc": null
+        },
+        {
+          "name": "_short_desc_from_python",
+          "type": "function",
+          "lineno": 119,
+          "desc": null
+        },
+        {
+          "name": "build_project_index",
+          "type": "function",
+          "lineno": 141,
+          "desc": null
+        },
+        {
+          "name": "save_project_index",
+          "type": "function",
+          "lineno": 193,
+          "desc": null
+        },
+        {
+          "name": "load_project_index",
+          "type": "function",
+          "lineno": 201,
+          "desc": null
+        },
+        {
+          "name": "tree_to_text",
+          "type": "function",
+          "lineno": 210,
+          "desc": null
+        },
+        {
+          "name": "save_project_tree",
+          "type": "function",
+          "lineno": 234,
+          "desc": null
+        },
+        {
+          "name": "load_project_tree",
+          "type": "function",
+          "lineno": 242,
+          "desc": null
+        },
+        {
+          "name": "find_file",
+          "type": "function",
+          "lineno": 251,
+          "desc": null
+        },
+        {
+          "name": "search_symbol",
+          "type": "function",
+          "lineno": 291,
+          "desc": null
+        },
+        {
+          "name": "search_text",
+          "type": "function",
+          "lineno": 338,
+          "desc": null
+        }
+      ],
+      "short_desc": null
+    },
+    "tools/run_lain.py": {
+      "path": "tools/run_lain.py",
+      "symbols": [
+        {
+          "name": "_read_file_safe",
+          "type": "function",
+          "lineno": 67,
+          "desc": null
+        },
+        {
+          "name": "_extract_symbol_candidates",
+          "type": "function",
+          "lineno": 79,
+          "desc": null
+        },
+        {
+          "name": "_select_relevant_project_files",
+          "type": "function",
+          "lineno": 95,
+          "desc": null
+        },
+        {
+          "name": "_build_relevant_files_block",
+          "type": "function",
+          "lineno": 136,
+          "desc": null
+        },
+        {
+          "name": "build_context",
+          "type": "function",
+          "lineno": 159,
+          "desc": null
+        },
+        {
+          "name": "run_lain",
+          "type": "function",
+          "lineno": 238,
+          "desc": null
+        }
+      ],
+      "short_desc": null
+    }
+  },
+  "symbols": {
+    "_remove_thinking_blocks": [
+      {
+        "path": "core/context.py",
+        "type": "function",
+        "lineno": 7,
+        "desc": "Remove chain-of-thought blocks from text."
+      }
+    ],
+    "load_system_prompt": [
+      {
+        "path": "core/context.py",
+        "type": "function",
+        "lineno": 24,
+        "desc": null
+      },
+      {
+        "path": "main.py",
+        "type": "function",
+        "lineno": 21,
+        "desc": null
+      }
+    ],
+    "load_last_messages": [
+      {
+        "path": "core/context.py",
+        "type": "function",
+        "lineno": 29,
+        "desc": null
+      }
+    ],
+    "load_session": [
+      {
+        "path": "core/context.py",
+        "type": "function",
+        "lineno": 56,
+        "desc": null
+      }
+    ],
+    "save_session": [
+      {
+        "path": "core/context.py",
+        "type": "function",
+        "lineno": 73,
+        "desc": null
+      }
+    ],
+    "load_memory": [
+      {
+        "path": "core/context.py",
+        "type": "function",
+        "lineno": 88,
+        "desc": null
+      },
+      {
+        "path": "main.py",
+        "type": "function",
+        "lineno": 29,
+        "desc": null
+      }
+    ],
+    "write_log": [
+      {
+        "path": "main.py",
+        "type": "function",
+        "lineno": 62,
+        "desc": null
+      }
+    ],
+    "read_file": [
+      {
+        "path": "main.py",
+        "type": "function",
+        "lineno": 93,
+        "desc": null
+      }
+    ],
+    "backup_file": [
+      {
+        "path": "main.py",
+        "type": "function",
+        "lineno": 107,
+        "desc": null
+      }
+    ],
+    "main": [
+      {
+        "path": "main.py",
+        "type": "function",
+        "lineno": 121,
+        "desc": null
+      }
+    ],
+    "run_aider": [
+      {
+        "path": "tools/aider_tool.py",
+        "type": "function",
+        "lineno": 20,
+        "desc": null
+      }
+    ],
+    "_read_file_safe": [
+      {
+        "path": "tools/analyze.py",
+        "type": "function",
+        "lineno": 12,
+        "desc": null
+      },
+      {
+        "path": "tools/run_lain.py",
+        "type": "function",
+        "lineno": 67,
+        "desc": null
+      }
+    ],
+    "_build_directory_prompt": [
+      {
+        "path": "tools/analyze.py",
+        "type": "function",
+        "lineno": 19,
+        "desc": null
+      }
+    ],
+    "analyze_file": [
+      {
+        "path": "tools/analyze.py",
+        "type": "function",
+        "lineno": 34,
+        "desc": null
+      }
+    ],
+    "clean": [
+      {
+        "path": "tools/llm_tool.py",
+        "type": "function",
+        "lineno": 13,
+        "desc": null
+      }
+    ],
+    "remove_thinking": [
+      {
+        "path": "tools/llm_tool.py",
+        "type": "function",
+        "lineno": 24,
+        "desc": "Remove chain-of-thought blocks from text."
+      }
+    ],
+    "run_llm": [
+      {
+        "path": "tools/llm_tool.py",
+        "type": "function",
+        "lineno": 41,
+        "desc": null
+      }
+    ],
+    "normalize_project": [
+      {
+        "path": "tools/project_search.py",
+        "type": "function",
+        "lineno": 39,
+        "desc": null
+      }
+    ],
+    "is_allowed_file": [
+      {
+        "path": "tools/project_search.py",
+        "type": "function",
+        "lineno": 46,
+        "desc": null
+      }
+    ],
+    "project_files": [
+      {
+        "path": "tools/project_search.py",
+        "type": "function",
+        "lineno": 50,
+        "desc": null
+      }
+    ],
+    "build_project_tree": [
+      {
+        "path": "tools/project_search.py",
+        "type": "function",
+        "lineno": 65,
+        "desc": null
+      }
+    ],
+    "_short_desc_from_python": [
+      {
+        "path": "tools/project_search.py",
+        "type": "function",
+        "lineno": 119,
+        "desc": null
+      }
+    ],
+    "build_project_index": [
+      {
+        "path": "tools/project_search.py",
+        "type": "function",
+        "lineno": 141,
+        "desc": null
+      }
+    ],
+    "save_project_index": [
+      {
+        "path": "tools/project_search.py",
+        "type": "function",
+        "lineno": 193,
+        "desc": null
+      }
+    ],
+    "load_project_index": [
+      {
+        "path": "tools/project_search.py",
+        "type": "function",
+        "lineno": 201,
+        "desc": null
+      }
+    ],
+    "tree_to_text": [
+      {
+        "path": "tools/project_search.py",
+        "type": "function",
+        "lineno": 210,
+        "desc": null
+      }
+    ],
+    "save_project_tree": [
+      {
+        "path": "tools/project_search.py",
+        "type": "function",
+        "lineno": 234,
+        "desc": null
+      }
+    ],
+    "load_project_tree": [
+      {
+        "path": "tools/project_search.py",
+        "type": "function",
+        "lineno": 242,
+        "desc": null
+      }
+    ],
+    "find_file": [
+      {
+        "path": "tools/project_search.py",
+        "type": "function",
+        "lineno": 251,
+        "desc": null
+      }
+    ],
+    "search_symbol": [
+      {
+        "path": "tools/project_search.py",
+        "type": "function",
+        "lineno": 291,
+        "desc": null
+      }
+    ],
+    "search_text": [
+      {
+        "path": "tools/project_search.py",
+        "type": "function",
+        "lineno": 338,
+        "desc": null
+      }
+    ],
+    "_extract_symbol_candidates": [
+      {
+        "path": "tools/run_lain.py",
+        "type": "function",
+        "lineno": 79,
+        "desc": null
+      }
+    ],
+    "_select_relevant_project_files": [
+      {
+        "path": "tools/run_lain.py",
+        "type": "function",
+        "lineno": 95,
+        "desc": null
+      }
+    ],
+    "_build_relevant_files_block": [
+      {
+        "path": "tools/run_lain.py",
+        "type": "function",
+        "lineno": 136,
+        "desc": null
+      }
+    ],
+    "build_context": [
+      {
+        "path": "tools/run_lain.py",
+        "type": "function",
+        "lineno": 159,
+        "desc": null
+      }
+    ],
+    "run_lain": [
+      {
+        "path": "tools/run_lain.py",
+        "type": "function",
+        "lineno": 238,
+        "desc": null
+      }
+    ]
+  }
+}

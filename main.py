@@ -15,6 +15,8 @@ from config import (
 from tools.run_lain import run_lain
 from tools.aider_tool import run_aider
 from tools.analyze import analyze_file
+from tools.llm_tool import remove_thinking
+
 
 def load_system_prompt():
     return Path(
@@ -53,35 +55,39 @@ def load_memory():
     )
 
 
+from pathlib import Path
+from datetime import datetime
+import json
+
 def write_log(role, content):
-    log_dir = Path(
-        "/home/pachhh/Lain/logs"
-    )
+    log_dir = Path("/home/pachhh/Lain/logs")
+    log_dir.mkdir(exist_ok=True)
 
-    log_dir.mkdir(
-        exist_ok=True
-    )
+    date = f"{datetime.now():%Y-%m-%d}"
 
-    logfile = (
-        log_dir
-        / f"{datetime.now():%Y-%m-%d}.log"
-    )
+    log_file = log_dir / f"{date}.log"
+    jsonl_file = log_dir / f"{date}.jsonl"
 
-    timestamp = datetime.now().strftime(
-        "%H:%M:%S"
-    )
+    timestamp = datetime.now().strftime("%H:%M:%S")
 
-    with open(
-        logfile,
-        "a",
-        encoding="utf-8"
-    ) as f:
-        f.write(
-            f"[{timestamp}] [{role}]\n"
-        )
-
+    # Log legible
+    with open(log_file, "a", encoding="utf-8") as f:
+        f.write(f"[{timestamp}] [{role}]\n")
         f.write(content)
         f.write("\n\n")
+
+    # Log estructurado
+    with open(jsonl_file, "a", encoding="utf-8") as f:
+        json.dump(
+            {
+                "timestamp": timestamp,
+                "role": role.lower(),
+                "content": content
+            },
+            f,
+            ensure_ascii=False
+        )
+        f.write("\n")
 
 #
 def read_file(filepath):
@@ -113,18 +119,7 @@ def backup_file(filepath):
     return backup_path
 
 def main():
-    # system_prompt = (
-    #     load_system_prompt()
-    #     + load_memory()
-    # )
-
-    # messages = [
-    #     {
-    #         "role": "system",
-    #         "content": system_prompt
-    #     }
-    # ]
-
+    
     print(
         f"[{ASSISTANT_NAME} v1]"
     )
@@ -147,6 +142,7 @@ def main():
             question = parts[1] if len(parts) > 1 else ""
 
             result = analyze_file(file_path, question)
+            print(result)
 
             continue
 
@@ -154,8 +150,11 @@ def main():
             
             continue
 
-        run_lain(user_input)
+        write_log("USER", user_input)
 
+        response = run_lain(user_input)
+        assistant_response = remove_thinking(response)
+        write_log("ASSISTANT", assistant_response)
 
 if __name__ == "__main__":
     main()

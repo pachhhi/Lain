@@ -1,30 +1,12 @@
-from tools.run_lain import run_lain
 from pathlib import Path
 
-ALLOWED_EXTENSIONS = {
-    ".py",
-    ".md",
-    ".txt",
-    ".json",
-    ".yaml",
-    ".yml",
-    ".toml",
-    ".js",
-    ".ts",
-    ".tsx",
-    ".jsx",
-    ".html",
-    ".css",
-    ".sh",
-}
-
-MAX_FILES = 25
-MAX_FILE_BYTES = 50_000
-MAX_CONTENT_CHARS = 20_000
-
-
-def _is_allowed_file(path: Path) -> bool:
-    return path.suffix.lower() in ALLOWED_EXTENSIONS
+from tools.run_lain import run_lain
+from tools.project_search import (
+    build_project_tree,
+    save_project_tree,
+    tree_to_text,
+)
+from core.context import load_session, save_session
 
 
 def _read_file_safe(path: Path) -> str:
@@ -34,56 +16,19 @@ def _read_file_safe(path: Path) -> str:
         return f"[ERROR leyendo archivo: {exc}]"
 
 
-def _build_directory_prompt(path: Path, question: str) -> str:
-    files = [
-        p for p in sorted(path.rglob("*"))
-        if p.is_file() and _is_allowed_file(p)
-    ]
+def _build_directory_prompt(path: Path, tree: dict, question: str) -> str:
+    tree_text = tree_to_text(tree, max_items=200)
+    question_text = question if question else "Describe la estructura del proyecto y las partes más importantes."
 
-    if not files:
-        file_list = "No se encontraron archivos permitidos en el directorio."
-    else:
-        file_list = "\n".join(
-            f"- {p.relative_to(path)}"
-            for p in files[:MAX_FILES]
-        )
-        if len(files) > MAX_FILES:
-            file_list += f"\n- ... y {len(files) - MAX_FILES} archivos más"
+    return f"""
+PROJECT: {path}
 
-    prompt_parts = [
-        f"DIRECTORY: {path}",
-        "FILES:",
-        file_list,
-        "",
-        "CONTENTS:",
-    ]
+ÁRBOL DEL PROYECTO:
+{tree_text}
 
-    for p in files[:MAX_FILES]:
-        rel = p.relative_to(path)
-        size = p.stat().st_size
-
-        if size > MAX_FILE_BYTES:
-            content = f"[SKIPPED: archivo demasiado grande ({size} bytes)]"
-        else:
-            content = _read_file_safe(p)
-            if len(content) > MAX_CONTENT_CHARS:
-                content = content[:MAX_CONTENT_CHARS] + "\n...[TRUNCATED]"
-
-        prompt_parts.append(f"FILE: {rel}\n{content}\n")
-
-    if len(files) > MAX_FILES:
-        prompt_parts.append(
-            f"[... se omitieron {len(files) - MAX_FILES} archivos adicionales ...]"
-        )
-
-    prompt_parts.append(
-        "QUESTION:"
-    )
-    prompt_parts.append(
-        question if question else "Explain what this directory contains and how its files relate to each other."
-    )
-
-    return "\n".join(prompt_parts)
+QUESTION:
+{question_text}
+"""
 
 
 def analyze_file(file_path: str, question: str = "") -> str:
@@ -92,21 +37,33 @@ def analyze_file(file_path: str, question: str = "") -> str:
     if not path.exists():
         return f"Archivo no encontrado: {file_path}"
 
-    if path.is_dir():
-        prompt = _build_directory_prompt(path, question)
-    else:
-        if not _is_allowed_file(path):
-            return f"Extensión no permitida para análisis: {path.suffix}"
+    session = load_session()
+    session["last_analyze_target"] = str(path)
 
+    if path.is_dir():
+        session["current_project"] = str(path)
+        session["current_file"] = None
+    else:
+        session["current_project"] = str(path.parent)
+        session["current_file"] = str(path)
+
+    session["current_topic"] = question if question else None
+    save_session(session)
+
+    if path.is_dir():
+        tree = build_project_tree(path, include_size=True)
+        save_project_tree(path, tree)
+        prompt = _build_directory_prompt(path, tree, question)
+    else:
         code = _read_file_safe(path)
         prompt = f"""
-FILE: {file_path}
+FILE: {path}
 
 CODE:
 {code}
 
 QUESTION:
-{question if question else "Explain what this file or directory does."}
+{question if question else 'Explain what this file does.'}
 """
 
     return run_lain(prompt, mode="analyze")
