@@ -1,6 +1,0 @@
-1. Hacer general el /analyze, que analice cualquier archivo de mi computadora | HECHO!
-2. Integrar los prompts / definir personalidad, que deje de gastar tantos tokens en thinking y tratar de maximizar su respuesta. | HECHO PERO SE PUEDE MEJORAR XD :w
-3. Agregarle Voz capaz
-4. Mejorarle el prompt para que sea mas lindo visualmente, darle colores. El lambda debe ser violeta cuando responda Lain y verde cuando yo pregunte.
-5. Arreglar prompt (se printea dos veces)
-6. Agregarle /generate para que pueda generar documentacion de mi proyecto, por ejemplo darle un directorio y que de ahi entienda el contexto del proyecto y lo docuemnte en formato README.md
