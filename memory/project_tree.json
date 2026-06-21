@@ -1,94 +1,31 @@
 {
     "type": "directory",
-    "name": "Lain",
-    "path": "/home/pachhh/Lain",
+    "name": "MyWeb",
+    "path": "/home/pachhh/Proyects/MyWeb",
     "children": [
         {
-            "type": "file",
-            "name": "config.py",
-            "path": "config.py",
-            "size": 64
-        },
-        {
             "type": "directory",
-            "name": "core",
-            "path": "core",
-            "children": [
-                {
-                    "type": "file",
-                    "name": "context.py",
-                    "path": "core/context.py",
-                    "size": 2401
-                }
-            ]
+            "name": "images",
+            "path": "images",
+            "children": []
         },
         {
             "type": "file",
-            "name": "main.py",
-            "path": "main.py",
-            "size": 3189
-        },
-        {
-            "type": "directory",
-            "name": "prompts",
-            "path": "prompts",
-            "children": [
-                {
-                    "type": "file",
-                    "name": "aider.txt",
-                    "path": "prompts/aider.txt",
-                    "size": 1224
-                },
-                {
-                    "type": "file",
-                    "name": "system.txt",
-                    "path": "prompts/system.txt",
-                    "size": 297
-                }
-            ]
+            "name": "index.html",
+            "path": "index.html",
+            "size": 6534
         },
         {
             "type": "file",
-            "name": "todo.txt",
-            "path": "todo.txt",
-            "size": 824
+            "name": "scheme.txt",
+            "path": "scheme.txt",
+            "size": 321
         },
         {
-            "type": "directory",
-            "name": "tools",
-            "path": "tools",
-            "children": [
-                {
-                    "type": "file",
-                    "name": "aider_tool.py",
-                    "path": "tools/aider_tool.py",
-                    "size": 1082
-                },
-                {
-                    "type": "file",
-                    "name": "analyze.py",
-                    "path": "tools/analyze.py",
-                    "size": 1718
-                },
-                {
-                    "type": "file",
-                    "name": "llm_tool.py",
-                    "path": "tools/llm_tool.py",
-                    "size": 2262
-                },
-                {
-                    "type": "file",
-                    "name": "project_search.py",
-                    "path": "tools/project_search.py",
-                    "size": 14008
-                },
-                {
-                    "type": "file",
-                    "name": "run_lain.py",
-                    "path": "tools/run_lain.py",
-                    "size": 12992
-                }
-            ]
+            "type": "file",
+            "name": "style.css",
+            "path": "style.css",
+            "size": 9113
         }
     ]
 }
