@@ -15,15 +15,18 @@ from config import (
 from tools.run_lain import run_lain
 from tools.aider_tool import run_aider
 from tools.analyze import analyze_file
-from tools.llm_tool import remove_thinking
+
+from core.providers.system import load_system_prompt
+
+# from tools.llm_tool import remove_thinking
 
 
-def load_system_prompt():
-    return Path(
-        "/home/pachhh/Lain/prompts/system.txt"
-    ).read_text(
-        encoding="utf-8"
-    ).strip()
+# def load_system_prompt():
+#     return Path(
+#         "/home/pachhh/Lain/prompts/system.txt"
+#     ).read_text(
+#         encoding="utf-8"
+#     ).strip()
 
 
 def load_memory():
@@ -153,8 +156,8 @@ def main():
         write_log("USER", user_input)
 
         response = run_lain(user_input)
-        assistant_response = remove_thinking(response)
-        write_log("ASSISTANT", assistant_response)
+        write_log("ASSISTANT", response)
+
 
 if __name__ == "__main__":
     main()

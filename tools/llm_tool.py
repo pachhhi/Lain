@@ -20,24 +20,6 @@ def clean(text: str) -> str:
     text = re.sub(r'[⠁-⣿]', '', text)
     return text
 
-
-def remove_thinking(text: str) -> str:
-    """Remove chain-of-thought blocks from text.
-    
-    Removes blocks between 'Thinking...' (or 'Thinking..') and '...done thinking.' (or '...done thinking').
-    Handles various whitespace and punctuation variants.
-    """
-    if not isinstance(text, str):
-        return text
-
-    pattern = re.compile(
-        r"Thinking\.+\s*.*?(?:\.\.\.)?done thinking\.?",
-        re.IGNORECASE | re.DOTALL
-    )
-    result = pattern.sub("", text).strip()
-    return result if result else text.strip()
-
-
 def run_llm(prompt: str, model: str = "qwen3:8b") -> str:
     proc = subprocess.Popen(
     ["ollama", "run", model],

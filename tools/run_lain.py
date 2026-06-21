@@ -22,6 +22,9 @@ from core.context import (
     load_last_messages,
 )
 
+from core.providers.system import load_system_prompt
+from core.manager import ContextManager
+
 MAX_RELEVANT_FILES = 5
 MAX_FILE_CHARS = 4000
 MAX_FILE_PROMPT_CHARS = 12000
@@ -307,14 +310,20 @@ def _build_partial_symbol_context(project: str, missing: list[str]) -> str:
     return "\n".join(blocks).strip()
 
 
+
+#THIS CONTEXT WILL BE PART FROM CONTEXT.PY
 def build_context(prompt, mode="chat"):
-    system = load_system_prompt()
-    memory = load_memory()
-    session = load_session()
+    # system = load_system_prompt()
+    # memory = load_memory()
+    # session = load_session()
+    # history = load_last_messages(limit=5)
 
+    manager = ContextManager()
 
-
-    history = load_last_messages(limit=5)
+    return manager.build(
+        prompt=prompt,
+        mode=mode
+    )
 
     session_text = "\n".join(
         f"{k}: {v}"
