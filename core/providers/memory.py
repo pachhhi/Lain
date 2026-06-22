@@ -1,3 +1,6 @@
+from pathlib import Path
+import json
+
 def load_memory():
     memory_file = Path("/home/pachhh/Lain/memory/memory.json")
 
@@ -18,4 +21,13 @@ def load_memory():
 class MemoryProvider:
 
     def get_context(self):
-        return load_memory()
+        text = load_memory()
+
+        return {
+            "text": text,
+            "chars": len(text),
+            "tokens_est": len(text) // 4
+        }
+
+    def get_chars(self):
+        return len(load_memory())

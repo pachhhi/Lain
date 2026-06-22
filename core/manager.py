@@ -1,5 +1,5 @@
 from core.providers.system import SystemProvider
-# from core.providers.memory import MemoryProvider
+from core.providers.memory import MemoryProvider
 # from core.providers.history import HistoryProvider
 
 class ContextManager:
@@ -13,9 +13,10 @@ class ContextManager:
             # print(SystemProvider().get_context())
         )
 
-        # context.append(
-        #     MemoryProvider().get_context()
-        # )
+        memory = MemoryProvider().get_context()
+        context.append(
+            memory["text"]
+        )
 
         # context.append(
         #     HistoryProvider().get_context()

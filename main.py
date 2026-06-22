@@ -16,46 +16,7 @@ from tools.run_lain import run_lain
 from tools.aider_tool import run_aider
 from tools.analyze import analyze_file
 
-from core.providers.system import load_system_prompt
 
-# from tools.llm_tool import remove_thinking
-
-
-# def load_system_prompt():
-#     return Path(
-#         "/home/pachhh/Lain/prompts/system.txt"
-#     ).read_text(
-#         encoding="utf-8"
-#     ).strip()
-
-
-def load_memory():
-    memory_file = Path(
-        "/home/pachhh/Lain/memory/memory.json"
-    )
-
-    if not memory_file.exists():
-        return ""
-
-    with open(
-        memory_file,
-        "r",
-        encoding="utf-8"
-    ) as f:
-        data = json.load(f)
-
-    facts = data.get("facts", [])
-
-    if not facts:
-        return ""
-
-    return (
-        "\n\nInformación conocida del usuario:\n"
-        + "\n".join(
-            f"- {fact}"
-            for fact in facts
-        )
-    )
 
 
 from pathlib import Path

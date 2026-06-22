@@ -1,14 +1,18 @@
 from pathlib import Path
 
-def load_system_prompt():
-    return Path(
-        "/home/pachhh/Lain/prompts/system.txt"
-    ).read_text(
-        encoding="utf-8"
-    ).strip()
 
+PROMPT_DIR = "/home/pachhh/Lain/prompts"
+
+def load_file(path: str) -> str:
+    return Path(path).read_text(encoding="utf-8").strip()
 
 class SystemProvider:
 
     def get_context(self):
-        return load_system_prompt()
+        parts = [
+            load_file(f"{PROMPT_DIR}/system.txt"),
+            load_file(f"{PROMPT_DIR}/style.txt"),
+            load_file(f"{PROMPT_DIR}/output.txt"),
+        ]
+
+        return "\n\n".join(parts)

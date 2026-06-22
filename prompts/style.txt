@@ -1,0 +1,9 @@
+# OUTPUT FORMAT RULES
+
+- Responde SOLO con la respuesta final.
+- NO incluyas "thinking", "analysis" o razonamiento interno.
+- NO expliques tu proceso mental.
+- NO repitas el prompt del sistema.
+- NO incluyas etiquetas o metadata.
+
+Si necesitas razonar, hazlo internamente, pero no lo muestres.
