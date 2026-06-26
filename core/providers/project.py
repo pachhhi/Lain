@@ -1,7 +1,11 @@
+from core.helpers.project_helpers import *
+from core.providers.session import SessionProvider
+from core.helpers.session_helper import load_session
+
 
 class ProjectProvider:
 
-    def get_context(self, prompt):
+    def get_context(self, prompt=None):
 
         session = load_session()
 
@@ -31,36 +35,34 @@ class ProjectProvider:
             else:
                 missing.append(candidate)
 
-        definition_block = ""
-
-        if exact_defs:
-            definition_block = _build_exact_definitions_block(
-                current_project,
-                exact_defs
-            )
-
-        partial_block = ""
-
-        if missing:
-            partial_block = _build_partial_symbol_context(
-                current_project,
-                missing
-            )
-
-        relevant_files_block = _build_relevant_files_block(
-            current_project,
-            prompt,
-            current_file=current_file
-        )
-
         blocks = [
-            definition_block,
-            partial_block,
-            relevant_files_block
+            f"PROYECTO ACTUAL: {current_project}"
         ]
 
+        if exact_defs:
+            blocks.append(
+                _build_exact_definitions_block(
+                    current_project,
+                    exact_defs
+                )
+            )
+
+        if missing:
+            blocks.append(
+                _build_partial_symbol_context(
+                    current_project,
+                    missing
+                )
+            )
+
+        blocks.append(
+            _build_relevant_files_block(
+                current_project,
+                prompt,
+                current_file=current_file
+            )
+        )
+
         return "\n\n".join(
-            block
-            for block in blocks
-            if block
+            block for block in blocks if block
         )

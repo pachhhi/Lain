@@ -1,34 +1,29 @@
 from core.providers.system import SystemProvider
 from core.providers.memory import MemoryProvider
-# from core.providers.history import HistoryProvider
+from core.providers.session import SessionProvider
+from core.providers.history import HistoryProvider
+from core.providers.project import ProjectProvider
+
 
 class ContextManager:
+    def __init__(self):
+        self.providers = [
+            SystemProvider(),
+            MemoryProvider(),
+            SessionProvider(),
+            # ProjectProvider(),
+            HistoryProvider(),
+        ]
 
-    def build(self, prompt, mode):
-
+    def build(self, prompt):
         context = []
 
-        context.append(
-            SystemProvider().get_context()
-            # print(SystemProvider().get_context())
-        )
+        for provider in self.providers:
+            part = provider.get_context(prompt)
 
-        memory = MemoryProvider().get_context()
-        context.append(
-            memory["text"]
-        )
+            if part:
+                context.append(part)
 
-        # context.append(
-        #     HistoryProvider().get_context()
-        # )
+        context.append(f"USER:\n{prompt}")
 
-        # context.append(
-        #     f"USER:\n{prompt}"
-        # )
-
-        print(context)
-
-        return "\n\n".join(
-            block for block in context
-            if block
-        )
+        return "\n\n".join(context)

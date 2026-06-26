@@ -1,4 +1,6 @@
 from pathlib import Path
+from datetime import datetime
+import json 
 
 def load_last_messages(limit=5):
     log_dir = Path("/home/pachhh/Lain/logs")

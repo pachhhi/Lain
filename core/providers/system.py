@@ -8,7 +8,7 @@ def load_file(path: str) -> str:
 
 class SystemProvider:
 
-    def get_context(self):
+    def get_context(self, prompt=None):
         parts = [
             load_file(f"{PROMPT_DIR}/system.txt"),
             load_file(f"{PROMPT_DIR}/style.txt"),

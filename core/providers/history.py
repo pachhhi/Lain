@@ -4,7 +4,7 @@ from core.helpers.history_helpers import load_last_messages
 
 class HistoryProvider:
 
-    def get_context(self):
+    def get_context(self, prompt=None):
         history = load_last_messages(limit=5)
 
         return "\n".join(
