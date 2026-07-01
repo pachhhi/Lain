@@ -1,14 +1,18 @@
-#llamar a run_llm (se puede upgradear ejemplos: aislar ollama, metricas, tokens, etc.), NO tiene contexto ni nada, es el modelo de Lain, mas no Lain.
-
-import subprocess
+from core.llm.ollama import OllamaLLM
+from core.llm.client import LLMClient
 from config import MODEL
 
-def run_llm(prompt: str) -> str:
-    result = subprocess.run(
-        ["ollama", "run", MODEL],
-        input=prompt,
-        capture_output=True,
-        text=True,
-    )
+provider = OllamaLLM(MODEL)
+llm = LLMClient(provider)
 
-    return result.stdout
+
+def run_llm(prompt: str) -> str:
+
+    messages = [
+        {
+            "role": "user",
+            "content": prompt
+        }
+    ]
+
+    return llm.generate(messages)

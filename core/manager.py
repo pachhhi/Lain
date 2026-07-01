@@ -7,15 +7,18 @@ from core.providers.project import ProjectProvider
 
 class ContextManager:
 
-    def build(self, prompt, providers, debug=False):
+    def build(self, context_obj, debug=False):
 
         context = []
         debug_info = []
 
-        for provider_cls in providers:
+        for provider_cls in context_obj.providers:
             provider = provider_cls()
 
-            part = provider.get_context(prompt)
+            part = provider.get_context(
+                context_obj.prompt,
+                context_obj.flags
+            )
 
             if part:
                 context.append(part)
@@ -25,20 +28,28 @@ class ContextManager:
                     (provider_cls.__name__, len(part) if part else 0)
                 )
 
-        context.append(f"USER:\n{prompt}")
+        # SYSTEM dinámico
+        system = "Tu nombre es Lain.\n"
 
-        final_context = "\n\n".join(context)
+        if context_obj.flags.language == "es":
+            system += "Responde en español.\n"
+
+        if context_obj.flags.verbosity == "low":
+            system += "Sé breve.\n"
+
+        context.insert(0, system)
+        context.append(f"USER:\n{context_obj.prompt}")
+
+        response = "\n\n".join(context)
 
         if debug:
             print("\n===== CONTEXT BREAKDOWN =====")
-
             for name, size in debug_info:
                 print(f"{name:<20}: {size}")
-
-            print(f"{'Prompt':<20}: {len(prompt)}")
-            print(f"{'Total':<20}: {len(final_context)}")
+            print(f"{'Prompt':<20}: {len(context_obj.prompt)}")
+            print(f"{'Total':<20}: {len(response)}")
             print("=============================\n")
 
-        return final_context
+        return response
 
     

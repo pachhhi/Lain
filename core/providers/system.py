@@ -8,11 +8,9 @@ def load_file(path: str) -> str:
 
 class SystemProvider:
 
-    def get_context(self, prompt=None):
+    def get_context(self, prompt=None, flags=None):
         parts = [
             load_file(f"{PROMPT_DIR}/system.txt"),
-            load_file(f"{PROMPT_DIR}/style.txt"),
-            load_file(f"{PROMPT_DIR}/output.txt"),
         ]
 
         return "\n\n".join(parts)

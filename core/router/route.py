@@ -6,7 +6,7 @@ from core.providers.memory import MemoryProvider
 ROUTES = {
     Intent.GREETING: [SystemProvider],
     Intent.CHAT: [SystemProvider, HistoryProvider],
-    Intent.MEMORY: [SystemProvider, HistoryProvider, MemoryProvider],
+    Intent.REMEMBER: [SystemProvider, HistoryProvider, MemoryProvider],
 }
 
 def get_route(intent):
