@@ -1,15 +1,16 @@
 from dataclasses import dataclass
 from typing import Optional, Any
+from typing import List, Dict, Any, Literal
 
+Message = Dict[str, str]
 
 @dataclass
 class ContextObject:
-    prompt: str
-    intent: Optional[str] = None
-    flags: Optional[Any] = None
-    providers: Optional[list] = None
+    user_input: str
+    intent: str | None = None
+    mode: Optional[str] = None 
+    flags: Any = None
+    providers: list | None = None
 
-    # futuro (no lo uses aún)
-    memory: Optional[str] = None
-    session: Optional[dict] = None
-    metadata: Optional[dict] = None
+    def __post_init__(self):
+        assert isinstance(self.user_input, str), "user_input must be str"

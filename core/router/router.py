@@ -6,28 +6,26 @@ from core.context.context_object import ContextObject
 
 class RuleRouter:
 
-    def route(self, prompt: str):
-
-        p = prompt.lower().strip()
+    def route(self, user_input: str):
 
         flags = Flags()
 
-        if is_greeting(p):
+        if is_greeting(user_input):
             return ContextObject(
-                prompt=prompt,
+                user_input=str(user_input),  
                 intent=Intent.GREETING,
                 flags=flags
             )
 
-        if is_remember_request(p):
+        if is_remember_request(user_input):
             return ContextObject(
-                prompt=prompt,
+                user_input=str(user_input),   
                 intent=Intent.REMEMBER,
                 flags=flags
             )
 
         return ContextObject(
-            prompt=prompt,
+            user_input=str(user_input),  
             intent=Intent.CHAT,
             flags=flags
         )

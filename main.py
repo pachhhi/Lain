@@ -29,10 +29,7 @@ def main():
         write_log("USER", user_input)
 
         response = run_lain(user_input)        
-        print("\n===== CONTEXT BREAKDOWN =====")
         
-        print("=============================\n")
-
         type_text(response)
 
         write_log("ASSISTANT", response)

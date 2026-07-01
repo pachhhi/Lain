@@ -31,6 +31,9 @@ class RuleClassifier:
 
         if is_greeting(p):
             return Intent.GREETING
+        if is_remember_request(p):
+            return Intent.MEMORY, Intent
+
 
         return Intent.CHAT
 

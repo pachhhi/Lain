@@ -2,17 +2,6 @@ from core.llm.ollama import OllamaLLM
 from core.llm.client import LLMClient
 from config import MODEL
 
-provider = OllamaLLM(MODEL)
-llm = LLMClient(provider)
-
-
-def run_llm(prompt: str) -> str:
-
-    messages = [
-        {
-            "role": "user",
-            "content": prompt
-        }
-    ]
-
+def run_llm(model, messages):
+    llm = LLMFactory.create(model)
     return llm.generate(messages)
