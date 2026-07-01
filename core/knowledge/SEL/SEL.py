@@ -1,9 +1,9 @@
-from core.knowledge.SEL.index import SELIndex
+from core.knowledge.SEL.vector_index import SELVectorIndex
 
 class SELKnowledgeProvider:
 
     def __init__(self):
-        self.index = SELIndex()
+        self.index = SELVectorIndex()
 
     def get_context(self, user_input, flags):
 
@@ -12,11 +12,10 @@ class SELKnowledgeProvider:
 
         results = self.index.search(user_input)
 
-        # 🔥 FALLBACK IMPORTANTE
         if not results:
             return {
                 "role": "system",
-                "content": self.base_context()
+                "content": self.fallback()
             }
 
         return {
@@ -24,14 +23,15 @@ class SELKnowledgeProvider:
             "content": self.format(results)
         }
 
-#     def base_context(self):
-#         return """
-# SEL MODE ACTIVE:
+    def format(self, results):
+        return "SEL KNOWLEDGE:\n\n" + "\n".join(f"- {r}" for r in results)
 
-# You interpret reality through the lens of Serial Experiments Lain.
+    def fallback(self):
+        return """
+SEL MODE ACTIVE:
 
-# Core principles:
-# - reality is layered (physical / digital / perceptual)
-# - identity is fragmented across systems
-# - The Wired represents interconnected consciousness
-# """
+You interpret reality through SEL lens:
+- identity is distributed
+- reality is layered
+- consciousness emerges from networks
+"""

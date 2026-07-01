@@ -12,16 +12,16 @@ def run_lain(prompt, debug=True):
     router = RuleRouter()
     mode_detector = ModeDetector()
 
-    # 1. Detectar modo
+    # 1. Detectar modo (/sel, /debug, etc)
     mode = mode_detector.detect(prompt)
 
-    # 2. Limpiar input (quita /sel, /debug, etc)
+    # 2. Limpiar input (IMPORTANTE para UX + embeddings)
     clean_prompt = mode_detector.strip_mode(prompt)
 
-    # 3. Router SOLO con input limpio
+    # 3. Router usa CLEAN input
     routed = router.route(clean_prompt)
 
-    # 4. Construcción explícita del ContextObject (IMPORTANTE)
+    # 4. ContextObject único (source of truth)
     context_obj = ContextObject(
         user_input=clean_prompt,
         intent=routed.intent,
@@ -30,8 +30,12 @@ def run_lain(prompt, debug=True):
         providers=get_route(routed.intent, mode)
     )
 
-    # 5. Build messages
+    # 5. Build context → messages
     messages = build_context(context_obj, debug)
+
+    # sanity check (buena práctica que ya tienes)
+    assert isinstance(messages, list)
+    assert all("role" in m and "content" in m for m in messages)
 
     # 6. LLM runtime
     llm = LLMFactory.create(MODEL)
