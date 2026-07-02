@@ -7,18 +7,12 @@ class SELKnowledgeProvider:
         self.graph = SELDynamicGraph()
 
     def get_context(self, user_input, flags=None, mode=None):
-
-        if mode != "sel":
-            return None
-
-        self.graph.ingest(user_input)
         concepts = self.graph.query(user_input)
 
-        content = self.format(concepts)
+        if not concepts:
+            return None
 
-        # 🔥 GARANTÍA ABSOLUTA
-        if not content or not isinstance(content, str):
-            content = "SEL WIRED:\n(no data available)"
+        content = self.format(concepts)
 
         return {
             "role": "system",

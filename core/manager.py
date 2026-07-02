@@ -52,9 +52,7 @@ class ContextManager:
                 context_obj.user_input,
                 context_obj.flags,
                 context_obj.mode
-                )
-
-            part = provider.get_context(...)
+            )
 
             if part is None:
                 continue
@@ -70,13 +68,10 @@ class ContextManager:
                     f"{provider_cls.__name__} devolvió {type(part)}"
                 )
 
-                if debug:
-                    debug_info.append(
-                        (
-                            provider_cls.__name__,
-                            len(part["content"]) if part else 0
-                        )
-                    )
+            if debug and isinstance(part, dict):
+                debug_info.append(
+                    (provider_cls.__name__, len(part["content"]))
+                )
 
         assert part is None or (
         isinstance(part, dict)
