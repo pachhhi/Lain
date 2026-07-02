@@ -50,19 +50,39 @@ class ContextManager:
 
             part = provider.get_context(
                 context_obj.user_input,
-                context_obj.flags
-            )
-
-            if part:
-                messages.append({
-                    "role": "system",
-                    "content": part
-                })
-
-            if debug:
-                debug_info.append(
-                    (provider_cls.__name__, len(part) if part else 0)
+                context_obj.flags,
+                context_obj.mode
                 )
+
+            part = provider.get_context(...)
+
+            if part is None:
+                continue
+
+            if isinstance(part, list):
+                messages.extend(part)
+
+            elif isinstance(part, dict):
+                messages.append(part)
+
+            else:
+                raise TypeError(
+                    f"{provider_cls.__name__} devolvió {type(part)}"
+                )
+
+                if debug:
+                    debug_info.append(
+                        (
+                            provider_cls.__name__,
+                            len(part["content"]) if part else 0
+                        )
+                    )
+
+        assert part is None or (
+        isinstance(part, dict)
+        and "role" in part
+        and "content" in part
+        ), f"{provider_cls.__name__} devolvió un formato inválido"
 
         # 3. USER MESSAGE (importante)
         messages.append({
@@ -70,7 +90,15 @@ class ContextManager:
             "content": context_obj.user_input
         })
 
-        validate_messages(messages) #verify if messages are valid
+        def validate_messages(messages):
+            for i, m in enumerate(messages):
+                print(f"\nMESSAGE {i}")
+                print(m)
+                print("content type:", type(m["content"]))
+
+                assert "role" in m
+                assert "content" in m
+                assert isinstance(m["content"], str)
 
         # 4. DEBUG (igual idea pero adaptado)
         if debug:

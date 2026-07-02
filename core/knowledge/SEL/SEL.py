@@ -1,37 +1,35 @@
-from core.knowledge.SEL.vector_index import SELVectorIndex
+from core.knowledge.SEL.dynamic_graph import SELDynamicGraph
+
 
 class SELKnowledgeProvider:
 
     def __init__(self):
-        self.index = SELVectorIndex()
+        self.graph = SELDynamicGraph()
 
-    def get_context(self, user_input, flags):
+    def get_context(self, user_input, flags=None, mode=None):
 
-        if not flags or flags.mode != "sel":
+        if mode != "sel":
             return None
 
-        results = self.index.search(user_input)
+        self.graph.ingest(user_input)
+        concepts = self.graph.query(user_input)
 
-        if not results:
-            return {
-                "role": "system",
-                "content": self.fallback()
-            }
+        content = self.format(concepts)
+
+        # 🔥 GARANTÍA ABSOLUTA
+        if not content or not isinstance(content, str):
+            content = "SEL WIRED:\n(no data available)"
 
         return {
             "role": "system",
-            "content": self.format(results)
+            "content": content
         }
 
-    def format(self, results):
-        return "SEL KNOWLEDGE:\n\n" + "\n".join(f"- {r}" for r in results)
+    def format(self, concepts):
+        if not concepts:
+            return "SEL WIRED:\n(no concepts)"
 
-    def fallback(self):
-        return """
-SEL MODE ACTIVE:
-
-You interpret reality through SEL lens:
-- identity is distributed
-- reality is layered
-- consciousness emerges from networks
-"""
+        return "SEL WIRED:\n\n" + "\n".join(
+            f"- {str(c)}"
+            for c in concepts
+        )

@@ -30,8 +30,12 @@ def run_lain(prompt, debug=True):
         providers=get_route(routed.intent, mode)
     )
 
+    print("PROVIDERS:", context_obj.providers)
+
     # 5. Build context → messages
     messages = build_context(context_obj, debug)
+
+    print("MODE:", context_obj.mode)
 
     # sanity check (buena práctica que ya tienes)
     assert isinstance(messages, list)
@@ -39,6 +43,16 @@ def run_lain(prompt, debug=True):
 
     # 6. LLM runtime
     llm = LLMFactory.create(MODEL)
+
+    # from pprint import pprint
+
+    # print("\n========== FINAL MESSAGES ==========")
+    # for i, msg in enumerate(messages):
+    #     print(f"\nMESSAGE {i}")
+    #     pprint(msg)
+    #     print("content type:", type(msg["content"]))
+    # print("====================================\n")
+
     response = llm.generate(messages)
 
     return response

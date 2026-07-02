@@ -8,9 +8,9 @@ def load_file(path: str) -> str:
 
 class SystemProvider:
 
-    def get_context(self, prompt=None, flags=None):
-        parts = [
-            load_file(f"{PROMPT_DIR}/system.txt"),
-        ]
-
-        return "\n\n".join(parts)
+    def get_context(self, user_input=None, flags=None, mode=None):
+        with open("prompts/system.txt") as f:
+            return {
+                "role": "system",
+                "content": f.read()
+            }
